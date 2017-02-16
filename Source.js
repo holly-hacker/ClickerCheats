@@ -19,7 +19,7 @@ var loadMenu = function() {
 	    	all:unset;
 	    	all:initial; 
 
-	    	color: white!important;
+	    	/*color: white!important;*/
 
 	        position: absolute; 
 	        top: 10px; 
@@ -56,7 +56,7 @@ var loadMenu = function() {
 	</div>`);
 
 	//populate menu (with items/cheats)
-	//new GeneralCheats();
+	new GeneralCheats();
 	if (location.pathname == "/spaceplan/") new SpacePlanCheats();
 	if (location.pathname == "/cookieclicker/") new CookieClickerCheats();
 	if (location.hostname == "monolith.greenpixel.ca") new MonolithCheats();
@@ -64,11 +64,27 @@ var loadMenu = function() {
 };
 
 var GeneralCheats = function() {
+	this.hookedRandom = false;
+	this.hookedRandomValue = 0;
 	$('#HollyMenuContent')	
 		.append('<h2>General</h2></br>')
-		//.append('<input type="checkbox" onclick="SpacePlanCheats.InfMoney(this)">Infinite Power</br>')
-		//.append('<input type="button" onclick="localStorage = null" value="Full Reset" style="all:initial; all:unset;"></br>')
+		.append('<input type="checkbox" onclick="GeneralCheats.UpdateRandomFunctionEnable(this.checked)">Hook Math.random()</br>')
+		.append('<input type="number" min="0" max="1" step="0.05" value="' + this.hookedRandomValue + '" onchange="GeneralCheats.UpdateRandomFunctionValue(this.value)" /></br>')
 		;
+};
+GeneralCheats.UpdateRandomFunctionEnable = function(enabled) {
+	if (enabled != this.hookedRandom) {
+		if (enabled) {
+			this.origRandom = Math.random;	//store original in a safe place
+			Math.random = function() {return GeneralCheats.hookedRandomValue;};
+		} else {
+			Math.random = this.origRandom;	//restore
+		}
+		this.hookedRandom = enabled;
+	}
+};
+GeneralCheats.UpdateRandomFunctionValue = function(value) {
+	this.hookedRandomValue = value;
 };
 
 var SpacePlanCheats = function() {
