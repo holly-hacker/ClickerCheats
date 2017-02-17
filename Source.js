@@ -49,6 +49,7 @@ var loadMenu = function() {
 	    }
 
 		#HollyMenuContent input[type="button"], 
+		#HollyMenuContent input[type="number"], 
 		#HollyMenuContent button {
 			color: white;
 			background: black;
@@ -69,6 +70,7 @@ var loadMenu = function() {
 	if (location.pathname == "/spaceplan/") new SpacePlanCheats();
 	if (location.pathname == "/cookieclicker/") new CookieClickerCheats();
 	if (location.hostname == "monolith.greenpixel.ca") new MonolithCheats();
+	if (location.pathname == "/tour-of-heroes/") new TourOfHeroesCheats();
 	new DebugCheats();
 };
 
@@ -78,7 +80,7 @@ var GeneralCheats = function() {
 	$('#HollyMenuContent')	
 		.append('<h2>General</h2>')
 		.append('<input type="checkbox" onclick="GeneralCheats.UpdateRandomFunctionEnable(this.checked)">Hook Math.random()</br>')
-		.append('<input type="number" min="0" max="1" step="0.05" value="' + this.hookedRandomValue + '" onchange="GeneralCheats.UpdateRandomFunctionValue(this.value)" /></br>')
+		.append('<input type="number" min="0" max="0.99999999" step="0.05" value="' + this.hookedRandomValue + '" onchange="GeneralCheats.UpdateRandomFunctionValue(this.value)" /></br>')
 		;
 };
 GeneralCheats.UpdateRandomFunctionEnable = function(enabled) {
@@ -155,7 +157,7 @@ var MonolithCheats = function() {
 		;
 };
 MonolithCheats.SetAC = function(a) {
-	if(a.checked) 	this.ACEnabled = setInterval(function() {damageClick($('#beastButton')[0])}, 10);
+	if(a.checked) 	this.ACEnabled = setInterval(function() {damageClick($('#beastButton')[0]);}, 10);
 	else 			clearInterval(this.ACEnabled);
 };
 MonolithCheats.InfMoney = function(a) {
@@ -167,11 +169,23 @@ MonolithCheats.InfMoney = function(a) {
 	}
 };
 
+var TourOfHeroesCheats = function() {
+	$('#HollyMenuContent')	
+		.append('<h2>Tour of Heroes cheats</h2>')
+		.append('<input type="checkbox" onclick="TourOfHeroesCheats.SetAC(this)">Autoclick</br>')
+		//.append('<input type="checkbox" onclick="MonolithCheats.InfMoney(this)">Infinite Evo Points</br>')
+		;
+};
+TourOfHeroesCheats.SetAC = function(a) {
+	if(a.checked) 	this.ACEnabled = setInterval(function() {$('.action-main .progress-bar').click()}, 10);
+	else 			clearInterval(this.ACEnabled);
+};
+
 var DebugCheats = function() {
 	$('#HollyMenuContent')	
 		.append('<h2>Debug</h2>')
 		//.append('<input type="checkbox" onclick="DebugCheats.DoThing(this)">Thing</br>')
-		.append('<input type="button" onclick="localStorage.clear();location.reload()" value="Hard Reset"></br>')
+		.append('<input type="button" onclick="localStorage.clear();location.reload()" value="Clear localStorage"></br>')
 		.append('<input type="button" onclick="$(\'#HollyMenu\').remove()" value="Destroy Menu"></br>')
 		;
 };
@@ -195,4 +209,3 @@ if (typeof(jQuery) === 'undefined') {
 } else {
 	loadMenu();
 }
-
