@@ -19,14 +19,15 @@ var loadMenu = function() {
 	    	all:unset;
 	    	all:initial; 
 
-	    	/*color: white!important;*/
+	    	color: white!important;
 
+	    	font-size: 12px;
 	        position: absolute; 
 	        top: 10px; 
 	        left: 10px; 
 	        min-width: 150px; 
 	        background-color: rgba(0, 0, 0, 0.75); 
-	        z-index: 1000000001;
+	        z-index: 1000000001; /*fuck you, cookie clicker*/
 	    }
 	    #HollyMenu h1 {
 	    	background: black; 
@@ -45,7 +46,15 @@ var loadMenu = function() {
 	    	margin-bottom: 2px;
 	    	font-size: 120%;
 
-	    }`).appendTo("head");
+	    }
+
+		#HollyMenuContent input[type="button"], 
+		#HollyMenuContent button {
+			color: white;
+			background: black;
+			border: 1px solid white;
+			font-size: 12px;
+		}`).appendTo("head");
 	}
 
 	//create menu
@@ -67,7 +76,7 @@ var GeneralCheats = function() {
 	this.hookedRandom = false;
 	this.hookedRandomValue = 0;
 	$('#HollyMenuContent')	
-		.append('<h2>General</h2></br>')
+		.append('<h2>General</h2>')
 		.append('<input type="checkbox" onclick="GeneralCheats.UpdateRandomFunctionEnable(this.checked)">Hook Math.random()</br>')
 		.append('<input type="number" min="0" max="1" step="0.05" value="' + this.hookedRandomValue + '" onchange="GeneralCheats.UpdateRandomFunctionValue(this.value)" /></br>')
 		;
@@ -89,10 +98,10 @@ GeneralCheats.UpdateRandomFunctionValue = function(value) {
 
 var SpacePlanCheats = function() {
 	$('#HollyMenuContent')	
-		.append('<h2>SpacePlan cheats</h2></br>')
+		.append('<h2>SpacePlan cheats</h2>')
 		.append('<input type="checkbox" onclick="SpacePlanCheats.SetAC(this)">Autoclick</br>')
 		.append('<input type="checkbox" onclick="SpacePlanCheats.InfMoney(this)">Infinite Power</br>')
-		.append('<input type="button" onclick="power = 0" value="Reset Power" style="all:initial; all:unset;"></br>')
+		.append('<input type="button" onclick="power = 0" value="Reset Power"></br>')
 		;
 };
 SpacePlanCheats.SetAC = function(a) {
@@ -110,7 +119,7 @@ SpacePlanCheats.InfMoney = function(a) {
 
 var CookieClickerCheats = function() {
 	$('#HollyMenuContent')	
-		.append('<h2>CookieClicker cheats</h2></br>')
+		.append('<h2>CookieClicker cheats</h2>')
 		.append('<input type="checkbox" onclick="CookieClickerCheats.SetAC(this)">Autoclick</br>')
 		.append('<input type="checkbox" onclick="CookieClickerCheats.FreeUpgrades(this)">Free Upgrades</br>')
 		.append('<input type="button" onclick="Game.OpenSesame()" value="Enable Debug Menu"></br>')
@@ -140,7 +149,7 @@ CookieClickerCheats.SetFace = function(a) {
 
 var MonolithCheats = function() {
 	$('#HollyMenuContent')	
-		.append('<h2>The Monolith cheats</h2></br>')
+		.append('<h2>The Monolith cheats</h2>')
 		.append('<input type="checkbox" onclick="MonolithCheats.SetAC(this)">Autoclick</br>')
 		.append('<input type="checkbox" onclick="MonolithCheats.InfMoney(this)">Infinite Evo Points</br>')
 		;
@@ -160,7 +169,7 @@ MonolithCheats.InfMoney = function(a) {
 
 var DebugCheats = function() {
 	$('#HollyMenuContent')	
-		.append('<h2>Debug</h2></br>')
+		.append('<h2>Debug</h2>')
 		//.append('<input type="checkbox" onclick="DebugCheats.DoThing(this)">Thing</br>')
 		.append('<input type="button" onclick="localStorage.clear();location.reload()" value="Hard Reset"></br>')
 		.append('<input type="button" onclick="$(\'#HollyMenu\').remove()" value="Destroy Menu"></br>')
