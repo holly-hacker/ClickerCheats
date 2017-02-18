@@ -71,6 +71,7 @@ var loadMenu = function() {
 	if (location.pathname == "/cookieclicker/") new CookieClickerCheats();
 	if (location.hostname == "monolith.greenpixel.ca") new MonolithCheats();
 	if (location.pathname == "/tour-of-heroes/") new TourOfHeroesCheats();
+	if (location.hostname == "adarkroom.doublespeakgames.com") new ADarkRoomCheats();
 	new DebugCheats();
 };
 
@@ -177,8 +178,31 @@ var TourOfHeroesCheats = function() {
 		;
 };
 TourOfHeroesCheats.SetAC = function(a) {
-	if(a.checked) 	this.ACEnabled = setInterval(function() {$('.action-main .progress-bar').click()}, 10);
+	if(a.checked) 	this.ACEnabled = setInterval(function() {$('.action-main .progress-bar').click();}, 10);
 	else 			clearInterval(this.ACEnabled);
+};
+
+var ADarkRoomCheats = function() {
+	$('#HollyMenuContent')	
+		.append('<h2>A Dark Room cheats</h2>')
+		//.append('<input type="checkbox" onclick="ADarkRoomCheats.FastGatherers(this)">Faster Gatherers</br>')
+		.append('<input type="button" onclick="State.game.population=State.game.buildings.hut" value="Fill Village"></br>')
+		.append('<input type="button" onclick="State.game.buildings.hut=StateManager.MAX_STORE" value="Max Huts"></br>')
+		.append('<input type="button" onclick="State.game.population=StateManager.MAX_STORE" value="Max Population"></br>')
+		.append('<input type="button" onclick="ADarkRoomCheats.SetResources(true)" value="Max Resources"></br>')
+		.append('<input type="button" onclick="ADarkRoomCheats.SetResources(false)" value="Reset Resources"></br>')
+		;
+};
+/*
+ADarkRoomCheats.FastGatherers  = function(a) {
+	if(a.checked) 	{ State.income.gatherer.delay = 1;  }
+	else 			{ State.income.gatherer.delay = 10; }
+};
+*/
+ADarkRoomCheats.SetResources = function(infinite) {
+	for (var property in State.stores)
+	    if (State.stores.hasOwnProperty(property))
+	        State.stores[property] = (infinite ? StateManager.MAX_STORE : 0);
 };
 
 var DebugCheats = function() {
@@ -190,14 +214,15 @@ var DebugCheats = function() {
 		;
 };
 DebugCheats.DoThing = function(a) {
-	
+	if(a.checked) 	;
+	else 			;
 };
 
 //new code here
 
 clear();
 
-if (typeof(jQuery) === 'undefined') {
+if (!window.jQuery) {
 	//stuff
 	e = document.createElement('script');
     e.src = '//code.jquery.com/jquery-latest.min.js';
